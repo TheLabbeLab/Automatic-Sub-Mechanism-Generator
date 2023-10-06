@@ -1,0 +1,18 @@
+# This file is to be modified by user.
+
+# Enter Start, End, Step of Temepratures for which MESS have generated Rate Constants
+Temperature: [300, 2500, 50] # Input integer
+
+# Enter list of desired pressure to geenrate rate constants for.
+# Pressure: ['0.0001', '0.001', '0.01', '0.1', '1', '10', '100'] # Input string
+Pressure: [] # Input string
+
+# Enter species dictionary
+Species:
+  W1 : CH3OCH2OCH3
+  P1 : CH3OH + CH3OCH
+  P2 : CH2O + CH3OCH3
+  P3 : CH3 + OCH2OCH3   
+  P4 : OCH3 + CH2OCH3   
+  P5 : H + CH2OCH2OCH3  
+  P6 : H + CH3OCHOCH3  
