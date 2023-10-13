@@ -1,3 +1,5 @@
+import sys
+import colorama
 import numpy as np
 import re
 
@@ -153,6 +155,16 @@ def messExtract(filePath, T, P, keywords, pUnit='atm'):
                     if re.compile('Pressure = ' + str(p) + ' '+ pUnit).search(str.strip(data[i])):
                         line_num = i
                         rates.append(data[i + 3: i + 3 + len(T)])
+                    else:
+                        print('\n')
+                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Pressure {p} lsited in YAML file is not found in the MESS ouput file!")
+                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Recheck the MESS output file and YAML file.")
+                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "User must have enter the wrong pressure value in YAML file.")
+                        print('\n')
+                        print(colorama.Fore.RED + colorama.Style.BRIGHT + "SHAME!")
+                        print(colorama.Fore.RED + colorama.Style.BRIGHT + "Code exited. Come back when you got your pressures correct!")
+                        print('\n')
+                        sys.exit(0)
                         # print(str.strip(data[i])) 
             # print(rates[0])
 
