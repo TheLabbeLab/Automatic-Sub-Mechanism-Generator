@@ -149,22 +149,38 @@ def messExtract(filePath, T, P, keywords, pUnit='atm'):
 
             i = 0
 
+            MESS_Out_Pressure = []
+            for i in range(0, len(data)):
+                for p in P:
+                    if re.compile(f'Pressure = {p} {pUnit}').search(str.strip(data[i])):
+                        MESS_Out_Pressure.append(p)
+
+            # print(P == MESS_Out_Pressure)
+
+            for p in P:
+                PressureCheck = False
+                for PressureValue in MESS_Out_Pressure:
+                    # print(p)
+                    # print(PressureValue)
+                    if p == PressureValue:
+                        PressureCheck = True
+                if PressureCheck == False:    
+                    print('\n')
+                    print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Pressure {p} lsited in YAML file is not found in the MESS ouput file!")
+                    print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Recheck the MESS output file and YAML file.")
+                    print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "User must have enter the wrong pressure value in YAML file.")
+                    print('\n')
+                    print(colorama.Fore.RED + colorama.Style.BRIGHT + "SHAME!")
+                    print(colorama.Fore.RED + colorama.Style.BRIGHT + "Code exited. Come back when you got your pressures correct!")
+                    print('\n')
+                    sys.exit(0)
+                
             for p in P:
                 # print(p)
                 for i in range(0, len(data)):
-                    if re.compile('Pressure = ' + str(p) + ' '+ pUnit).search(str.strip(data[i])):
+                    if re.compile(f'Pressure = {p} {pUnit}').search(str.strip(data[i])):
                         line_num = i
                         rates.append(data[i + 3: i + 3 + len(T)])
-                    else:
-                        print('\n')
-                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Pressure {p} lsited in YAML file is not found in the MESS ouput file!")
-                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Recheck the MESS output file and YAML file.")
-                        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "User must have enter the wrong pressure value in YAML file.")
-                        print('\n')
-                        print(colorama.Fore.RED + colorama.Style.BRIGHT + "SHAME!")
-                        print(colorama.Fore.RED + colorama.Style.BRIGHT + "Code exited. Come back when you got your pressures correct!")
-                        print('\n')
-                        sys.exit(0)
                         # print(str.strip(data[i])) 
             # print(rates[0])
 
